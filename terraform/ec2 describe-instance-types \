@@ -1,0 +1,86 @@
+{
+    "InstanceTypes": [
+        {
+            "InstanceType": "t2.micro",
+            "CurrentGeneration": true,
+            "FreeTierEligible": false,
+            "SupportedUsageClasses": [
+                "on-demand",
+                "spot"
+            ],
+            "SupportedRootDeviceTypes": [
+                "ebs"
+            ],
+            "SupportedVirtualizationTypes": [
+                "hvm"
+            ],
+            "BareMetal": false,
+            "Hypervisor": "xen",
+            "ProcessorInfo": {
+                "SupportedArchitectures": [
+                    "i386",
+                    "x86_64"
+                ],
+                "SustainedClockSpeedInGhz": 2.5,
+                "Manufacturer": "Intel"
+            },
+            "VCpuInfo": {
+                "DefaultVCpus": 1,
+                "DefaultCores": 1,
+                "DefaultThreadsPerCore": 1
+            },
+            "MemoryInfo": {
+                "SizeInMiB": 1024
+            },
+            "InstanceStorageSupported": false,
+            "EbsInfo": {
+                "EbsOptimizedSupport": "unsupported",
+                "EncryptionSupport": "supported",
+                "NvmeSupport": "unsupported",
+                "MaximumEbsAttachments": 40,
+                "AttachmentLimitType": "shared"
+            },
+            "NetworkInfo": {
+                "NetworkPerformance": "Low to Moderate",
+                "MaximumNetworkInterfaces": 2,
+                "MaximumNetworkCards": 1,
+                "DefaultNetworkCardIndex": 0,
+                "NetworkCards": [
+                    {
+                        "NetworkCardIndex": 0,
+                        "NetworkPerformance": "Low to Moderate",
+                        "MaximumNetworkInterfaces": 2,
+                        "BaselineBandwidthInGbps": 0.064,
+                        "PeakBandwidthInGbps": 1.024,
+                        "DefaultEnaQueueCountPerInterface": 1
+                    }
+                ],
+                "Ipv4AddressesPerInterface": 2,
+                "Ipv6AddressesPerInterface": 2,
+                "Ipv6Supported": true,
+                "EnaSupport": "unsupported",
+                "EfaSupported": false,
+                "EncryptionInTransitSupported": false,
+                "EnaSrdSupported": false,
+                "FlexibleEnaQueuesSupport": "unsupported"
+            },
+            "PlacementGroupInfo": {
+                "SupportedStrategies": [
+                    "partition",
+                    "spread"
+                ]
+            },
+            "HibernationSupported": true,
+            "BurstablePerformanceSupported": true,
+            "DedicatedHostsSupported": false,
+            "AutoRecoverySupported": true,
+            "SupportedBootModes": [
+                "legacy-bios"
+            ],
+            "NitroEnclavesSupport": "unsupported",
+            "NitroTpmSupport": "unsupported",
+            "PhcSupport": "unsupported",
+            "RebootMigrationSupport": "supported"
+        }
+    ]
+}
