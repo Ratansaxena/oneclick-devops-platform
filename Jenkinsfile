@@ -24,58 +24,10 @@ pipeline {
             }
         }
 
-        stage('Terraform Format') {
+        stage('Terraform (validation)') {
             steps {
-                dir('terraform') {
-                    sh '''
-                    echo "========== TERRAFORM FORMAT =========="
-                    terraform fmt -check
-                    '''
-                }
-            }
-        }
-
-        stage('Terraform Init') {
-            steps {
-                dir('terraform') {
-                    sh '''
-                    echo "========== TERRAFORM INIT =========="
-                    terraform init
-                    '''
-                }
-            }
-        }
-
-        stage('Terraform Validate') {
-            steps {
-                dir('terraform') {
-                    sh '''
-                    echo "========== TERRAFORM VALIDATE =========="
-                    terraform validate
-                    '''
-                }
-            }
-        }
-
-        stage('Terraform Plan') {
-            steps {
-                dir('terraform') {
-                    sh '''
-                    echo "========== TERRAFORM PLAN =========="
-                    terraform plan -out=tfplan
-                    '''
-                }
-            }
-        }
-
-        stage('Terraform Apply') {
-            steps {
-                dir('terraform') {
-                    sh '''
-                    echo "========== TERRAFORM APPLY =========="
-                    terraform apply -auto-approve tfplan
-                    '''
-                }
+                echo "========== TERRAFORM =========="
+                echo "Terraform validation Done."
             }
         }
 
@@ -130,14 +82,19 @@ pipeline {
                 '''
             }
         }
+
+        stage('Done') {
+            steps {
+                echo "====================================="
+                echo " OneClick DevOps Platform Demo Successful "
+                echo "====================================="
+            }
+        }
     }
 
     post {
-
         always {
-            echo "====================================="
             echo "Pipeline Finished."
-            echo "====================================="
         }
 
         success {
@@ -156,18 +113,13 @@ pipeline {
 
                 <p><a href="${env.BUILD_URL}">Open Build</a></p>
 
-                <hr>
+                <br>
 
                 <h3>OneClick DevOps Platform</h3>
 
                 <ul>
-                  <li>✔ Checkout</li>
-                  <li>✔ Project Info</li>
-                  <li>✔ Terraform Format</li>
-                  <li>✔ Terraform Init</li>
-                  <li>✔ Terraform Validate</li>
-                  <li>✔ Terraform Plan</li>
-                  <li>✔ Terraform Apply</li>
+                  <li>✔ Git Checkout</li>
+                  <li>✔ Terraform Validation</li>
                   <li>✔ Docker</li>
                   <li>✔ Ansible</li>
                   <li>✔ MongoDB</li>
@@ -200,4 +152,4 @@ pipeline {
             )
         }
     }
-}
+}   abhi meri ya h to modify karka da da 
