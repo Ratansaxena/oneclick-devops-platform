@@ -99,10 +99,57 @@ pipeline {
 
         success {
             echo "🎉 Build Successful."
+
+            emailext(
+                to: 'ratansaxena007@gmail.com',
+                subject: "✅ SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                mimeType: 'text/html',
+                body: """
+                <h2>Build Successful ✅</h2>
+
+                <p><b>Job:</b> ${env.JOB_NAME}</p>
+                <p><b>Build Number:</b> ${env.BUILD_NUMBER}</p>
+                <p><b>Status:</b> SUCCESS</p>
+
+                <p><a href="${env.BUILD_URL}">Open Build</a></p>
+
+                <br>
+
+                <h3>OneClick DevOps Platform</h3>
+
+                <ul>
+                  <li>✔ Git Checkout</li>
+                  <li>✔ Terraform Validation</li>
+                  <li>✔ Docker</li>
+                  <li>✔ Ansible</li>
+                  <li>✔ MongoDB</li>
+                  <li>✔ System Information</li>
+                </ul>
+
+                <br>
+
+                Jenkins Automated Email
+                """
+            )
         }
 
         failure {
             echo "❌ Build Failed."
+
+            emailext(
+                to: 'ratansaxena007@gmail.com',
+                subject: "❌ FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                mimeType: 'text/html',
+                body: """
+                <h2>Build Failed ❌</h2>
+
+                <p><b>Job:</b> ${env.JOB_NAME}</p>
+                <p><b>Build Number:</b> ${env.BUILD_NUMBER}</p>
+                <p><b>Status:</b> FAILED</p>
+
+                <p><a href="${env.BUILD_URL}">Open Build Log</a></p>
+                """
+            )
         }
     }
 }
