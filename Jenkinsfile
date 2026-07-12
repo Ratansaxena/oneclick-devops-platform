@@ -24,10 +24,10 @@ pipeline {
             }
         }
 
-        stage('Terraform (Validation)') {
+        stage('Terraform (validation)') {
             steps {
                 echo "========== TERRAFORM =========="
-                echo "Terraform validation completed successfully."
+                echo "Terraform validation Done."
             }
         }
 
@@ -52,7 +52,7 @@ pipeline {
                     if [ -f playbook.yml ]; then
                         ansible-playbook -i inventory.ini playbook.yml || true
                     else
-                        echo "playbook.yml not found."
+                        echo "playbook.yml not found. Skipping..."
                     fi
                 else
                     echo "Ansible folder not found."
@@ -93,125 +93,63 @@ pipeline {
     }
 
     post {
-
         always {
             echo "Pipeline Finished."
         }
 
         success {
-
             echo "🎉 Build Successful."
 
-            script {
-                emailext(
-                    to: 'ratansaxena007@gmail.com',
-                    subject: "✅ SUCCESS : ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                    mimeType: 'text/html',
-                    body: """
-<html>
-<body>
+            emailext(
+                to: 'ratansaxena007@gmail.com',
+                subject: "✅ SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                mimeType: 'text/html',
+                body: """
+                <h2>Build Successful ✅</h2>
 
-<h2 style="color:green;">Build Successful ✅</h2>
+                <p><b>Job:</b> ${env.JOB_NAME}</p>
+                <p><b>Build Number:</b> ${env.BUILD_NUMBER}</p>
+                <p><b>Status:</b> SUCCESS</p>
 
-<table border="1" cellpadding="8" cellspacing="0">
-<tr>
-<th>Project</th>
-<td>${env.JOB_NAME}</td>
-</tr>
+                <p><a href="${env.BUILD_URL}">Open Build</a></p>
 
-<tr>
-<th>Build Number</th>
-<td>#${env.BUILD_NUMBER}</td>
-</tr>
+                <br>
 
-<tr>
-<th>Status</th>
-<td>SUCCESS</td>
-</tr>
+                <h3>OneClick DevOps Platform</h3>
 
-<tr>
-<th>Build URL</th>
-<td>
-<a href="${env.BUILD_URL}">
-${env.BUILD_URL}
-</a>
-</td>
-</tr>
-</table>
+                <ul>
+                  <li>✔ Git Checkout</li>
+                  <li>✔ Terraform Validation</li>
+                  <li>✔ Docker</li>
+                  <li>✔ Ansible</li>
+                  <li>✔ MongoDB</li>
+                  <li>✔ System Information</li>
+                </ul>
 
-<br>
+                <br>
 
-<h3>Executed Stages</h3>
-
-<ul>
-<li>✅ Git Checkout</li>
-<li>✅ Project Information</li>
-<li>✅ Terraform Validation</li>
-<li>✅ Docker</li>
-<li>✅ Ansible</li>
-<li>✅ MongoDB</li>
-<li>✅ System Information</li>
-</ul>
-
-<hr>
-
-<p>
-Generated automatically by Jenkins.
-</p>
-
-</body>
-</html>
-"""
-                )
-            }
+                Jenkins Automated Email
+                """
+            )
         }
 
         failure {
-
             echo "❌ Build Failed."
 
-            script {
-                emailext(
-                    to: 'ratansaxena007@gmail.com',
-                    subject: "❌ FAILED : ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                    mimeType: 'text/html',
-                    body: """
-<html>
-<body>
+            emailext(
+                to: 'ratansaxena007@gmail.com',
+                subject: "❌ FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                mimeType: 'text/html',
+                body: """
+                <h2>Build Failed ❌</h2>
 
-<h2 style="color:red;">Build Failed ❌</h2>
+                <p><b>Job:</b> ${env.JOB_NAME}</p>
+                <p><b>Build Number:</b> ${env.BUILD_NUMBER}</p>
+                <p><b>Status:</b> FAILED</p>
 
-<table border="1" cellpadding="8" cellspacing="0">
-<tr>
-<th>Project</th>
-<td>${env.JOB_NAME}</td>
-</tr>
-
-<tr>
-<th>Build Number</th>
-<td>#${env.BUILD_NUMBER}</td>
-</tr>
-
-<tr>
-<th>Status</th>
-<td>FAILED</td>
-</tr>
-
-<tr>
-<th>Build Log</th>
-<td>
-<a href="${env.BUILD_URL}">
-Open Jenkins Build
-</a>
-</td>
-</tr>
-</table>
-
-</body>
-</html>
-"""
-                )
-            }
+                <p><a href="${env.BUILD_URL}">Open Build Log</a></p>
+                """
+            )
         }
     }
 }
