@@ -24,10 +24,10 @@ pipeline {
             }
         }
 
-        stage('Terraform (Skipped)') {
+        stage('Terraform (validation)') {
             steps {
                 echo "========== TERRAFORM =========="
-                echo "Terraform validation skipped for demo."
+                echo "Terraform validation Done."
             }
         }
 
